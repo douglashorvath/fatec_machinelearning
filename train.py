@@ -40,4 +40,40 @@ print("Teste: ", y_test.mean())
 
 # COMMAND ----------
 
+with mlflow.start_run():
+
+    mlflow.sklearn.autolog()
+    
+    #model = tree.DecisionTreeClassifier(min_samples_leaf=50)
+    model = ensemble.RandomForestClassifier(n_estimators=50, criterion="entropy",min_samples_leaf=15)
+    model.fit(X_train, y_train)
+    
+    print("--Dados Treino--")
+    y_train_pred = model.predict(X_train)
+    acc_train = metrics.accuracy_score(y_train, y_train_pred)
+    print("Acurácia: ", acc_train)
+    
+    print("--Dados Teste--")
+    y_test_pred = model.predict(X_test)
+    acc_test = metrics.accuracy_score(y_test, y_test_pred)
+    print("Acurácia: ", acc_test)
+    
+    
+
+# COMMAND ----------
+
+print("--Dados Treino--")
+y_train_pred = model.predict(X_train)
+acc_train = metrics.accuracy_score(y_train, y_train_pred)
+print("Acurácia: ", acc_train)
+
+# COMMAND ----------
+
+print("--Dados Teste--")
+y_test_pred = model.predict(X_test)
+acc_test = metrics.accuracy_score(y_test, y_test_pred)
+print("Acurácia: ", acc_test)
+
+# COMMAND ----------
+
 
